@@ -26,7 +26,7 @@ main(){
   theta_dot[0] = 0.0;
   for(double t=START_TIME; t<END_TIME; t+=DT){
     time[plot_num] = t;
-    theta_dot_dot = - G/L*sin(theta[plot_num]) - MU*theta_dot[plot_num];
+    theta_dot_dot = - G/L*sin(theta[plot_num]/2.0/M_PI) - MU*theta_dot[plot_num];
     theta_dot[plot_num+1] = theta_dot[plot_num] + theta_dot_dot*DT;
     theta[plot_num+1] = theta[plot_num] + theta_dot[plot_num+1]*DT;
     plot_num ++ ; 
