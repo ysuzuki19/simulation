@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cmath>
 
 typedef double TYPE;
@@ -20,29 +21,33 @@ typedef struct {
 } tdc;
 
 main(){
+  const TYPE 
+  int data_num = i+1;
   tdc data[100000];
   TYPE theta;
   TYPE phi;
   int i;
 
+  i = 0;
   theta = THETA_MIN;
   do{
     phi = PHI_MIN;
     do{
-      data[i].x = i;
-      data[i].y = i * 10;
-      data[i].z = i * 100;
+      data[i].x = (A+R*cos(theta))*cos(phi);
+      data[i].y = (A+R*cos(theta))*sin(phi);
+      data[i].z = R*sin(theta);
       phi += PHI_STEP;
+      i++;
     }while(phi < PHI_MAX);
     theta += THETA_STEP;
   }while(theta < THETA_MAX);
 
-//  for (i=0; i<10; i++){
-//    std::cout << data[i].x << ", "
-//              << data[i].y << ", "
-//              << data[i].z << std::endl;
-//  }
-
-  return 0;
+  std::ofstream fout("torus.txt");
+  for (i=0; i<data_num; i++){
+    fout << std::fixed << data[i].x << ", "
+         << data[i].y << ", "
+         << data[i].z << std::endl;
+  }
+  fout.close();
 
 }
